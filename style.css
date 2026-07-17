@@ -327,6 +327,12 @@ body, html {
     transform-origin: center;
 }
 
+#character-svg, .flying-glasses svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
 .flying-glasses.hidden {
     display: none;
 }
@@ -376,22 +382,56 @@ body, html {
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
-    .birthday-title {
-        font-size: 2.8rem;
+    .floor-line {
+        height: 90px;
     }
-    .birthday-subtitle {
-        font-size: 1.1rem;
-    }
-    .digit {
-        font-size: 5.5rem;
+    .character-container {
+        width: 110px;
+        height: 172px;
+        bottom: 85px; /* Sits on top of the 90px floor line minus 5px border */
     }
     .milestone {
-        right: 15%;
-        bottom: 125px;
+        right: 12%;
+        bottom: 85px;
+        gap: 10px;
+    }
+    .digit {
+        font-size: 5rem;
+    }
+    .flying-glasses {
+        width: 28px;
+        height: 17px;
     }
     .sun-glow {
-        right: 15%;
-        width: 300px;
-        height: 300px;
+        right: 12%;
+        width: 220px;
+        height: 220px;
+        bottom: 120px;
+    }
+    .birthday-title {
+        font-size: 2.4rem;
+        margin-bottom: 1rem;
+    }
+    .birthday-subtitle {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        padding: 0 10px;
+    }
+    .gift-box-wrapper {
+        font-size: 3.5rem;
+    }
+    .card.glass {
+        padding: 2rem 1.5rem;
+    }
+    .welcome-title {
+        font-size: 1.7rem;
+    }
+    .welcome-text {
+        font-size: 0.95rem;
+        margin-bottom: 1.8rem;
+    }
+    .btn {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
     }
 }

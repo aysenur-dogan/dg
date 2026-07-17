@@ -189,10 +189,17 @@ function updateAnimation() {
             throwProgress = 0;
             
             // Calculate coordinates for the flying glasses throw
-            throwStartLeft = charX + 78; // eyes position relative to SVG width
-            throwStartTop = window.innerHeight - 130 - 250 + 74; // bottom-line, container height, eyes Y offset
-            throwEndLeft = throwStartLeft + 140; // lands to the right
-            throwEndTop = window.innerHeight - 130 - 15; // lands on the floor
+            const isMobile = window.innerWidth <= 600;
+            const floorHeight = isMobile ? 90 : 130;
+            const charHeight = isMobile ? 172 : 250;
+            const scaleRatio = isMobile ? (110 / 160) : 1;
+            const eyeOffsetX = 78 * scaleRatio;
+            const eyeOffsetY = 74 * scaleRatio;
+            
+            throwStartLeft = charX + eyeOffsetX;
+            throwStartTop = window.innerHeight - floorHeight - charHeight + eyeOffsetY;
+            throwEndLeft = throwStartLeft + (isMobile ? 90 : 140);
+            throwEndTop = window.innerHeight - floorHeight - (isMobile ? 10 : 15);
         }
     }
     
@@ -318,12 +325,13 @@ function startSequence() {
     document.getElementById('welcome-screen').classList.add('hidden');
     
     // Calculate character destination (in front of the "22" milestone)
+    const isMobile = window.innerWidth <= 600;
     const milestoneRect = milestone22.getBoundingClientRect();
-    destX = milestoneRect.left - 130; // Stop just to the left of the milestone
+    destX = milestoneRect.left - (isMobile ? 85 : 130); // Stop just to the left of the milestone
     
     // Fallback if milestone hasn't rendered yet or window is tiny
-    if (destX < 50) {
-        destX = window.innerWidth * 0.45;
+    if (destX < (isMobile ? 20 : 50)) {
+        destX = window.innerWidth * (isMobile ? 0.35 : 0.45);
     }
     
     // Start Audio
@@ -383,10 +391,11 @@ window.onload = () => {
     // Handle window resize dynamically to adjust walking target
     window.onresize = () => {
         if (currentState === STATE_WALKING || currentState === STATE_IDLE) {
+            const isMobile = window.innerWidth <= 600;
             const milestoneRect = milestone22.getBoundingClientRect();
-            destX = milestoneRect.left - 130;
-            if (destX < 50) {
-                destX = window.innerWidth * 0.45;
+            destX = milestoneRect.left - (isMobile ? 85 : 130);
+            if (destX < (isMobile ? 20 : 50)) {
+                destX = window.innerWidth * (isMobile ? 0.35 : 0.45);
             }
         }
     };
