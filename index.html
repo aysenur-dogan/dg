@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İyi Ki Doğdun Kudret! 🎂</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Music Toggle -->
+    <button id="music-toggle" class="music-toggle hidden">
+        <span class="icon">🔊</span>
+    </button>
+
+    <!-- Start Overlay -->
+    <div id="welcome-screen" class="overlay">
+        <div class="card glass">
+            <div class="card-icon">🎁</div>
+            <h1 class="welcome-title">Kudret için Özel Bir Sürpriz!</h1>
+            <p class="welcome-text">Senin için hazırladığım bu sürprizi görmek için aşağıdaki butona tıkla.</p>
+            <button id="start-btn" class="btn btn-primary">Sürprizi Başlat ✨</button>
+        </div>
+    </div>
+
+    <!-- Celebration Overlay (Fades in at the end) -->
+    <div id="celebration-screen" class="overlay hidden">
+        <div class="celebration-content">
+            <h1 class="birthday-title animate-bounce">İyi ki Doğdun Kudret! 🎂🎉</h1>
+            <p class="birthday-subtitle">Yeni yaşın sana sağlık, mutluluk ve başarı getirsin. İyi ki varsın!</p>
+            <div class="gift-box-wrapper">
+                <div class="gift-box">🎁</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Game Area -->
+    <div id="game-stage">
+        <!-- Sun/Glow in background -->
+        <div class="sun-glow"></div>
+
+        <!-- Flying Balloons Container -->
+        <div id="balloons-container"></div>
+
+        <!-- Big 22 Milestone -->
+        <div id="milestone-22" class="milestone">
+            <span class="digit">2</span><span class="digit">2</span>
+        </div>
+
+        <!-- Character Container (holding the beautiful 2D vector character) -->
+        <div id="character-container" class="character-container">
+            <svg id="character-svg" width="160" height="250" viewBox="0 0 160 250">
+                <defs>
+                    <!-- Shawl (Hijab) Gradient (Matte Black) -->
+                    <linearGradient id="hijab-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#374151" /> <!-- Charcoal gray -->
+                        <stop offset="100%" stop-color="#111827" /> <!-- Deep black -->
+                    </linearGradient>
+                    <!-- Pants Gradient (Soft Sand/Cream) -->
+                    <linearGradient id="pants-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#fafaf9" /> <!-- Light Stone -->
+                        <stop offset="100%" stop-color="#e7e5e4" />
+                    </linearGradient>
+                    <!-- Badi (Top) Gradient (Vibrant Rose Pink) -->
+                    <linearGradient id="badi-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#fb7185" /> <!-- Rose Pink -->
+                        <stop offset="100%" stop-color="#e11d48" />
+                    </linearGradient>
+                </defs>
+
+                <!-- LEFT ARM (Behind Body) - Hugs the body naturally -->
+                <g id="left-arm">
+                    <!-- Sleeve (Rose Pink) -->
+                    <path d="M 52,115 C 46,130 46,150 48,163" stroke="url(#badi-grad)" stroke-width="13" stroke-linecap="round" fill="none" />
+                    <!-- Hand (Skin Tone) -->
+                    <circle cx="48" cy="169" r="8" fill="#ffe5d9" />
+                </g>
+
+                <!-- LEFT LEG (Behind) -->
+                <g id="left-leg">
+                    <!-- Pants leg (Soft Sand) -->
+                    <path d="M 64,180 L 64,237" stroke="url(#pants-grad)" stroke-width="16" stroke-linecap="round" fill="none" />
+                    <!-- Shoe -->
+                    <path d="M 60,237 C 50,237 48,248 66,248" stroke="#111827" stroke-width="11" stroke-linecap="round" fill="none" />
+                </g>
+
+                <!-- RIGHT LEG (Front) -->
+                <g id="right-leg">
+                    <!-- Pants leg (Soft Sand) -->
+                    <path d="M 94,180 L 94,237" stroke="url(#pants-grad)" stroke-width="16" stroke-linecap="round" fill="none" />
+                    <!-- Shoe -->
+                    <path d="M 90,237 C 80,237 78,248 96,248" stroke="#111827" stroke-width="11" stroke-linecap="round" fill="none" />
+                </g>
+
+                <!-- BODY -->
+                <!-- Badi (Rose Pink Top) -->
+                <path d="M 50,110 L 108,110 L 102,175 L 56,175 Z" fill="url(#badi-grad)" />
+                <!-- Waist Leather Belt -->
+                <rect x="53" y="170" width="48" height="7" rx="1.5" fill="#542c11" />
+                <rect x="72" y="168" width="10" height="11" rx="2" fill="none" stroke="#fbbf24" stroke-width="2" />
+
+                <!-- HEAD & HIJAB (Şal) - Layered for a tight, perfect fit -->
+                <!-- Back & Top Outer Hood -->
+                <ellipse cx="78" cy="74" rx="36" ry="38" fill="url(#hijab-grad)" />
+
+                <!-- Face skin (Feminine soft oval face) -->
+                <ellipse cx="78" cy="75" rx="24" ry="28" fill="#ffe5d9" />
+
+                <!-- Hijab Neck Cowl (Drape covering bottom of face and shoulders) -->
+                <path d="M 48,96 C 48,125 78,128 108,96 C 108,128 92,135 78,135 C 64,135 48,128 48,96 Z" fill="url(#hijab-grad)" />
+
+                <!-- Face details inside the face circle (Feminine Features) -->
+                <!-- Softer Arch Eyebrows -->
+                <path d="M 60,63 Q 66,57 71,62" stroke="#4a3728" stroke-width="1.3" fill="none" stroke-linecap="round" />
+                <path d="M 85,62 Q 90,57 96,63" stroke="#4a3728" stroke-width="1.3" fill="none" stroke-linecap="round" />
+
+                <!-- Eyes (Feminine Almond shape with lashes, brown iris) -->
+                <g id="eyes">
+                    <!-- Left Eye -->
+                    <path d="M 59,71 Q 67,66 73,71" stroke="#222" stroke-width="2" fill="none" stroke-linecap="round" />
+                    <!-- Left lashes (winging outward) -->
+                    <path d="M 59,71 Q 56,66 54,68" stroke="#222" stroke-width="1.5" fill="none" stroke-linecap="round" />
+                    <path d="M 61,70 Q 59,65 57,66" stroke="#222" stroke-width="1.2" fill="none" stroke-linecap="round" />
+                    
+                    <circle cx="66" cy="74" r="3.2" fill="#3a2212" /> <!-- Brown Iris -->
+                    <circle cx="66" cy="74" r="1.5" fill="#111" /> <!-- Pupil -->
+                    <circle cx="67" cy="73.2" r="0.6" fill="#fff" /> <!-- Sparkle -->
+
+                    <!-- Right Eye -->
+                    <path d="M 83,71 Q 89,66 97,71" stroke="#222" stroke-width="2" fill="none" stroke-linecap="round" />
+                    <!-- Right lashes (winging outward) -->
+                    <path d="M 97,71 Q 100,66 102,68" stroke="#222" stroke-width="1.5" fill="none" stroke-linecap="round" />
+                    <path d="M 95,70 Q 97,65 99,66" stroke="#222" stroke-width="1.2" fill="none" stroke-linecap="round" />
+
+                    <circle cx="90" cy="74" r="3.2" fill="#3a2212" /> <!-- Brown Iris -->
+                    <circle cx="90" cy="74" r="1.5" fill="#111" /> <!-- Pupil -->
+                    <circle cx="91" cy="73.2" r="0.6" fill="#fff" /> <!-- Sparkle -->
+                </g>
+
+                <!-- Natural soft nose -->
+                <path d="M 77,72 L 79,77 Q 79,79 77,79" stroke="#d59c7d" stroke-width="1.8" fill="none" stroke-linecap="round" />
+
+                <!-- Smile mouth (soft rose-pink lipstick smile) -->
+                <path d="M 72,85 Q 78,88 84,85 Q 78,92 72,85 Z" fill="#fb7185" stroke="#e11d48" stroke-width="0.8" />
+
+                <!-- Cheek Blushes (Natural pink glow) -->
+                <circle cx="61" cy="80" r="3.8" fill="#ffa3a3" opacity="0.45" />
+                <circle cx="95" cy="80" r="3.8" fill="#ffa3a3" opacity="0.45" />
+
+                <!-- GLASSES (Group we can hide when thrown) - Sleek thin black frames -->
+                <g id="character-glasses">
+                    <!-- Left Frame (Rectangular Modern Black) -->
+                    <rect x="58.5" y="66.5" width="18" height="15" rx="3.5" stroke="#222" stroke-width="2" fill="none" />
+                    <!-- Right Frame (Rectangular Modern Black) -->
+                    <rect x="79.5" y="66.5" width="18" height="15" rx="3.5" stroke="#222" stroke-width="2" fill="none" />
+                    <!-- Bridge (Black) -->
+                    <line x1="76.5" y1="74" x2="79.5" y2="74" stroke="#222" stroke-width="2" />
+                    <!-- Left temple side (Black) -->
+                    <path d="M 58.5,74 C 53,74 50,72 50,72" stroke="#222" stroke-width="1.5" fill="none" />
+                    <!-- Right temple side (Black) -->
+                    <path d="M 97.5,74 C 103,74 106,72 106,72" stroke="#222" stroke-width="1.5" fill="none" />
+                </g>
+
+                <!-- RIGHT ARM (In Front) - Hugs the body naturally -->
+                <g id="right-arm">
+                    <!-- Sleeve (Rose Pink) -->
+                    <path d="M 106,115 C 112,130 112,150 110,163" stroke="url(#badi-grad)" stroke-width="13" stroke-linecap="round" fill="none" />
+                    <!-- Hand (Skin Tone) -->
+                    <circle cx="110" cy="169" r="8" fill="#ffe5d9" />
+                </g>
+            </svg>
+        </div>
+
+        <!-- Flying Glasses Element (Absolute positioned, visible only during throwing phase) - Black matching -->
+        <div id="flying-glasses" class="flying-glasses hidden">
+            <svg width="40" height="25" viewBox="0 0 40 25">
+                <rect x="2" y="5" width="15" height="13" rx="3.5" stroke="#222" stroke-width="2.0" fill="none" />
+                <rect x="23" y="5" width="15" height="13" rx="3.5" stroke="#222" stroke-width="2.0" fill="none" />
+                <line x1="17" y1="11" x2="23" y2="11" stroke="#222" stroke-width="2.0" />
+                <path d="M 2,11 C -1,11 -3,9 -3,9" stroke="#222" stroke-width="1.5" fill="none" />
+                <path d="M 38,11 C 41,11 43,9 43,9" stroke="#222" stroke-width="1.5" fill="none" />
+            </svg>
+        </div>
+
+        <!-- Road/Floor line at bottom -->
+        <div class="floor-line"></div>
+    </div>
+
+    <!-- Include Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Application Logic -->
+    <script src="app.js"></script>
+</body>
+</html>
