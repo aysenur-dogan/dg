@@ -351,6 +351,16 @@ window.onload = () => {
     // Set initial position of character
     characterContainer.style.left = charX + 'px';
     
+    // Safari / Chrome Web Audio API unlock helper
+    const unlockAudio = () => {
+        initAudio();
+        if (audioCtx && audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    };
+    window.addEventListener('click', unlockAudio, { once: true });
+    window.addEventListener('touchstart', unlockAudio, { once: true });
+    
     // Start button click
     const startBtn = document.getElementById('start-btn');
     startBtn.onclick = () => {

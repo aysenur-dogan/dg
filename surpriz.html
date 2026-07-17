@@ -819,6 +819,16 @@
             
             characterContainer.style.left = charX + 'px';
             
+            // Safari / Chrome Web Audio API unlock helper
+            const unlockAudio = () => {
+                initAudio();
+                if (audioCtx && audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+            };
+            window.addEventListener('click', unlockAudio, { once: true });
+            window.addEventListener('touchstart', unlockAudio, { once: true });
+            
             document.getElementById('start-btn').onclick = startSequence;
             
             const toggleBtn = document.getElementById('music-toggle');
